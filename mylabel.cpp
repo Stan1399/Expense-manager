@@ -18,6 +18,6 @@ void MyLabel::resizeEvent(QResizeEvent *event){
     if(this->text().contains("\n"))
         fontForLabel.setPixelSize(this->size().height() / 3);
     else
-        fontForLabel.setPixelSize(this->size().height() / 3);
+        fontForLabel.setPixelSize(this->size().height() - this->size().height()/5);
     setFont(fontForLabel);
 }

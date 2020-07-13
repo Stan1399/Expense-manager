@@ -1,6 +1,6 @@
 QT       += core gui network
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++11
 
@@ -20,13 +20,15 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mylabel.cpp \
-    mypushbutton.cpp
+    mypushbutton.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
     communicator.h \
     mainwindow.h \
     mylabel.h \
-    mypushbutton.h
+    mypushbutton.h \
+    qcustomplot.h
 
 FORMS += \
     mainwindow.ui

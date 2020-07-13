@@ -2,8 +2,10 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
 #include <vector>
+#include <QEventLoop>
+
+QJsonArray Communicator::jsonArray;
 
 Communicator::Communicator()
 {
@@ -12,26 +14,29 @@ Communicator::Communicator()
 
 void Communicator::sendData() {
     QNetworkRequest request(QUrl("https://www.nbrb.by/api/exrates/rates?periodicity=0"));
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getResponse(QNetworkReply*)));
     manager->get(request);
+
+    QEventLoop loop;
+    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getResponse(QNetworkReply*)));
+    connect(manager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+    loop.exec();
+    //connect(reply, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(getResponse(QNetworkReply*)));
+
 }
 
 void Communicator::getResponse(QNetworkReply *reply)
 {
     QString str = reply->readAll();
-    qDebug() << str;
     reply->deleteLater();
-    QStringList Cur_Abbreviation;
-    std::vector<int> Cur_ID;
     QJsonDocument jsonResponse = QJsonDocument::fromJson(str.toUtf8());
     qDebug() << jsonResponse.isArray();
-    QJsonArray jsonArray = jsonResponse.array();
-    foreach (const QJsonValue & value, jsonArray) {
-        QJsonObject obj = value.toObject();
-        Cur_Abbreviation.append(obj["Cur_Abbreviation"].toString());
-        Cur_ID.push_back(obj["Cur_ID"].toInt());
-        qDebug() << Cur_Abbreviation[Cur_Abbreviation.length()-1] << ' ' << Cur_ID[Cur_ID.size()-1];
-    }
+    jsonArray = jsonResponse.array();
+//    foreach (const QJsonValue & value, jsonArray) {
+//        QJsonObject obj = value.toObject();
+//        Cur_Abbreviation.append(obj["Cur_Abbreviation"].toString());
+//        Cur_ID.push_back(obj["Cur_ID"].toInt());
+//        qDebug() << Cur_Abbreviation[Cur_Abbreviation.length()-1] << ' ' << Cur_ID[Cur_ID.size()-1];
+//    }
 
 //    foreach (const QString & key, keys) {
 //        QJsonValue value = rootObject.value(key);

@@ -22,5 +22,7 @@ private:
 
 private slots:
     void updateTime();
+    void setExchangeRates();
+    void on_currenciesComboBox_highlighted(int index);
 };
 #endif // MAINWINDOW_H

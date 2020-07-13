@@ -24,7 +24,7 @@
        <number>0</number>
       </property>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,1,1">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,1,2">
         <item>
          <widget class="MyLabel" name="dateAndTimeLabel">
           <property name="styleSheet">
@@ -46,11 +46,20 @@
         </item>
         <item>
          <widget class="MyLabel" name="outcomeLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Current outcome for today</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -107,13 +116,39 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1">
+       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,2,1,3">
         <item>
-         <widget class="QLabel" name="label_3">
+         <widget class="MyLabel" name="exchangeTitleLabel">
           <property name="text">
-           <string>TextLabel</string>
+           <string>The main exchange rates:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="exchangeRatesList"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QComboBox" name="currenciesComboBox"/>
+          </item>
+          <item>
+           <widget class="MyLabel" name="selectedCurrencyRateLabel">
+            <property name="text">
+             <string>Current rate</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QCustomPlot" name="widget" native="true"/>
         </item>
        </layout>
       </item>
@@ -145,7 +180,13 @@
   <customwidget>
    <class>MyLabel</class>
    <extends>QLabel</extends>
-   <header location="global">mylabel.h</header>
+   <header>mylabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header location="global">qcustomplot.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
